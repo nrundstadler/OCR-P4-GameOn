@@ -190,12 +190,16 @@ main {
   margin: 15px auto;
 }
 
+.formData {
+  margin-bottom: 5px;
+}
+
 label {
   font-family: var(--font-default);
-  font-size: 17px;
+  font-size: 0.87rem;
   font-weight: normal;
   display: inline-block;
-  margin-bottom: 11px;
+  margin-bottom: 10px;
 }
 input {
   padding: 8px;
@@ -207,33 +211,23 @@ input {
   padding: 8px;
   width: 100%;
   border-radius: 8px;
-  font-size: 20px;
-  height: 48px;
+  font-size: 1.12rem;
 }
-.formData[data-error]::after {
-  content: attr(data-error);
-  font-size: 0.4em;
-  color: #e54858;
+
+.data-error .error-message {
+  font-size: 0.43em;
+  font-weight: 400;
+  color: #ff4e60;
   display: block;
-  margin-top: 7px;
-  margin-bottom: 7px;
-  text-align: right;
-  line-height: 0.3;
-  opacity: 0;
-  transition: 0.3s;
+  margin-top: 0.3rem;
+  padding: 0;
 }
-.formData[data-error-visible="true"]::after {
-  opacity: 1;
+.data-error .text-control,
+.data-error input[type="radio"] + label .checkbox-icon,
+.data-error input[type="checkbox"][required] + label .checkbox-icon {
+  border: 2px solid #ff4e60 !important;
 }
-.formData[data-error-visible="true"] .text-control {
-  border: 2px solid #e54858;
-}
-/* 
-input[data-error]::after {
-    content: attr(data-error);
-    font-size: 0.4em;
-    color: red;
-} */
+
 .checkbox-label,
 .checkbox2-label {
   position: relative;
@@ -334,6 +328,12 @@ input[data-error]::after {
   color: #fff;
   cursor: pointer;
   border: 0;
+}
+.btn-submit:hover {
+  background: #3876ac;
+}
+.modal-body .btn-submit {
+  margin-top: 20px;
 }
 /* custom select styles */
 .custom-select {

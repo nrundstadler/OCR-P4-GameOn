@@ -1,5 +1,5 @@
 function editNav() {
-  var x = document.getElementById("myTopnav");
+  const x = document.getElementById("myTopnav");
   if (x.className === "topnav") {
     x.className += " responsive";
   } else {
@@ -10,7 +10,7 @@ function editNav() {
 // DOM Elements
 const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
-const closeBtn = document.querySelector(".close");
+const closeBtn = document.querySelectorAll(".close");
 
 // DOM Form Elements
 const formElements = {
@@ -24,11 +24,21 @@ const formElements = {
   submitBtn: document.querySelector(".btn-submit"),
 };
 
+const errorMessages = {
+  first: "Le prénom doit comporter au moins 2 caractères.",
+  last: "Le nom doit comporter au moins 2 caractères.",
+  email: "Veuillez entrer une adresse e-mail valide.",
+  birthdate: "Veuillez entrer une date de naissance au format JJ/MM/AAAA.",
+  quantity: "Veuillez entrer un nombre de tournois valide.",
+  city: "Veuillez sélectionner une ville.",
+  terms: "Vous devez lire et accepter les conditions d'utilisation.",
+};
+
 // launch modal event
 modalBtn.forEach(btn => btn.addEventListener("click", launchModal));
 
 // close modal event
-closeBtn.addEventListener("click", closeModal);
+closeBtn.forEach(btn => btn.addEventListener("click", closeModal));
 
 // launch modal form
 function launchModal() {
@@ -63,34 +73,75 @@ function isRadioSelected(radioElements) {
   return Array.from(radioElements).some(radio => radio.checked);
 }
 
+// Function to create and display an error message for invalid form fields
+function createErrorMessage(field, message) {
+  // Create a paragraph element for the error message
+  const errorMessage = document.createElement("p");
+  errorMessage.className = "error-message";
+  errorMessage.textContent = message;
+
+  // Get the first element if field is a NodeList, otherwise use field
+  const targetField = field instanceof NodeList ? field[0] : field;
+
+  // Insert the class error div parent
+  targetField.parentElement.classList.add("data-error");
+
+  // Insert the paragraph after field
+  targetField.parentElement.appendChild(errorMessage);
+}
+
 // Validation form function
 function validateForm(event) {
   event.preventDefault(); // Prevents immediate submission of the form, to test the fields before
 
   let valid = true;
 
+  // Remove all elements with the class "error-message" from the DOM
+  document.querySelectorAll(".error-message").forEach(el => el.remove());
+  // Remove the class "data-error" from all elements that have it
+  document.querySelectorAll(".data-error").forEach(el => el.classList.remove("data-error"));
+
   // Validate first name length
-  if (!isValidLength(formElements.first, 2)) valid = false;
+  if (!isValidLength(formElements.first, 2)) {
+    createErrorMessage(formElements.first, errorMessages.first);
+    valid = false;
+  }
 
   // Validate last name length
-  if (!isValidLength(formElements.last, 2)) valid = false;
+  if (!isValidLength(formElements.last, 2)) {
+    createErrorMessage(formElements.last, errorMessages.last);
+    valid = false;
+  }
 
   // Validate email
-  if (!isValidLength(formElements.email, 6) || !isValidEmail(formElements.email)) valid = false;
+  if (!isValidLength(formElements.email, 6) || !isValidEmail(formElements.email)) {
+    createErrorMessage(formElements.email, errorMessages.email);
+    valid = false;
+  }
 
   // Validate birthdate length
-  if (!isValidLength(formElements.birthdate, 10)) valid = false;
+  if (!isValidLength(formElements.birthdate, 10)) {
+    createErrorMessage(formElements.birthdate, errorMessages.birthdate);
+    valid = false;
+  }
 
   // Validate quantity (integer > 0)
-  if (!isValidLength(formElements.quantity, 1) || !isValidQuantity(formElements.quantity)) valid = false;
+  if (!isValidLength(formElements.quantity, 1) || !isValidQuantity(formElements.quantity)) {
+    createErrorMessage(formElements.quantity, errorMessages.quantity);
+    valid = false;
+  }
 
   // Validate city (one radio checked)
-  if (!isRadioSelected(formElements.city)) valid = false;
+  if (!isRadioSelected(formElements.city)) {
+    createErrorMessage(formElements.city, errorMessages.city);
+    valid = false;
+  }
 
   // Validate terms (checkbox is checked)
-  if (!formElements.terms || !formElements.terms.checked) valid = false;
-
-  console.log("valid ", valid);
+  if (!formElements.terms || !formElements.terms.checked) {
+    createErrorMessage(formElements.terms, errorMessages.terms);
+    valid = false;
+  }
 }
 
 // Event listener for the form submission button
