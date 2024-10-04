@@ -8,9 +8,10 @@ function editNav() {
 }
 
 // DOM Elements
+const modalBody = document.querySelector(".modal-body");
 const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
-const closeBtn = document.querySelectorAll(".close");
+const closeBtn = document.querySelector(".close-icon");
 
 // DOM Form Elements
 const formElements = {
@@ -38,7 +39,7 @@ const errorMessages = {
 modalBtn.forEach(btn => btn.addEventListener("click", launchModal));
 
 // close modal event
-closeBtn.forEach(btn => btn.addEventListener("click", closeModal));
+closeBtn.addEventListener("click", closeModal);
 
 // launch modal form
 function launchModal() {
@@ -88,6 +89,14 @@ function createErrorMessage(field, message) {
 
   // Insert the paragraph after field
   targetField.parentElement.appendChild(errorMessage);
+}
+
+// Function to display a confirmation message after successful form submission
+function showRegistrationSuccess() {
+  modalBody.innerHTML = `<p class="reserve-confirm">Merci pour votre inscription</p><input class="btn-submit close" type="submit" value="Fermer">`;
+  // Add listener new btn close
+  const closeButton = modalBody.querySelector(".close");
+  closeButton.addEventListener("click", closeModal);
 }
 
 // Validation form function
@@ -142,6 +151,8 @@ function validateForm(event) {
     createErrorMessage(formElements.terms, errorMessages.terms);
     valid = false;
   }
+
+  if (valid) showRegistrationSuccess();
 }
 
 // Event listener for the form submission button
