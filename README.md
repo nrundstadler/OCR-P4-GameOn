@@ -6,7 +6,7 @@ En plus de l'ajout du code JavaScript, j'ai apporté quelques améliorations au 
 
 ## Solution proposée
 
-(à venir)
+[https://nrundstadler.github.io/GameOn-website-FR/](https://nrundstadler.github.io/GameOn-website-FR/)
 
 ## Spécifications
 
