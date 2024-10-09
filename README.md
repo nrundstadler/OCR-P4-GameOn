@@ -6,7 +6,7 @@ En plus de l'ajout du code JavaScript, j'ai apporté quelques améliorations au 
 
 ## Solution proposée
 
-[https://nrundstadler.github.io/GameOn-website-FR/](https://nrundstadler.github.io/GameOn-website-FR/)
+[https://nrundstadler.github.io/OCR-P4-GameOn/](https://nrundstadler.github.io/OCR-P4-GameOn/)
 
 ## Spécifications
 
