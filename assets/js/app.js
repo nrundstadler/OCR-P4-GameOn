@@ -16,7 +16,6 @@ const formElements = {
   quantity: document.getElementById("quantity"),
   city: document.querySelectorAll("input[name=location]"),
   terms: document.getElementById("checkbox1"),
-  submitBtn: document.querySelector(".btn_submit"),
 };
 
 // List of error messages in French to display in the form
@@ -116,7 +115,8 @@ function createErrorMessage(field, message) {
 
 // Function to display a confirmation message after successful form submission
 function showRegistrationSuccess() {
-  modalBody.innerHTML = `<p class="reserve-confirm">Merci pour votre inscription</p><input class="btn_submit--close btn" type="submit" value="Fermer">`;
+  modalBody.innerHTML = `<p class="reserve-confirm">Merci pour votre inscription</p>
+  <input class="btn_submit--close btn" type="submit" value="Fermer">`;
   // Add listener new btn close & focus
   const closeButton = modalBody.querySelector(".btn_submit--close");
   closeButton.focus();
@@ -187,4 +187,4 @@ function validateForm(event) {
 }
 
 // Event listener for the form submission button
-formElements.submitBtn.addEventListener("click", validateForm);
+document.querySelector("form").addEventListener("submit", validateForm);
