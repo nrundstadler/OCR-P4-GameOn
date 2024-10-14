@@ -29,6 +29,9 @@ const errorMessages = {
   terms: "Vous devez lire et accepter les conditions d'utilisation.",
 };
 
+// Save the initial content of the form
+const formClone = modalBody.innerHTML;
+
 // Toggle navbar mobile
 menuMobileBtn.addEventListener("click", () =>
   document.querySelector(".header-navbar__list").classList.toggle("header-navbar__list--visible")
@@ -120,7 +123,15 @@ function showRegistrationSuccess() {
   // Add listener new btn close & focus
   const closeButton = modalBody.querySelector(".btn_submit--close");
   closeButton.focus();
-  closeButton.addEventListener("click", closeModal);
+  closeButton.addEventListener("click", function () {
+    closeModal();
+    resetForm();
+  });
+}
+
+// Function to reset and display the original form
+function resetForm() {
+  modalBody.innerHTML = formClone;
 }
 
 // Validation form function
@@ -186,5 +197,5 @@ function validateForm(event) {
   if (valid) showRegistrationSuccess();
 }
 
-// Event listener for the form submission button
+// Event listener for the form submission
 document.querySelector("form").addEventListener("submit", validateForm);
